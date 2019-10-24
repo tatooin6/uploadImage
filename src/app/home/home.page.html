@@ -1,14 +1,23 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Subir Imagen
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+<ion-content padding>
+  <ion-img expand="full" fill="clear" [src]="base64Image"></ion-img>
+  <ion-row>
+    <ion-button expand="full" expand="block" (click)="openCamera()">Abrir Camara</ion-button>
+  </ion-row>
+  <ion-row>
+    <ion-button expand="full" expand="block" (click)="openGallery()">Abrir Galeria</ion-button>
+  </ion-row>
+  <ion-row>
+    <ion-button expand="full" shape="round" color="dark" (click)="uploadImage()">Subir a Servidor</ion-button>
+  </ion-row>
+  
+  
+  
 </ion-content>
