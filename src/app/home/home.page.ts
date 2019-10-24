@@ -5,7 +5,6 @@ import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 
 
 @Component({
@@ -24,8 +23,7 @@ export class HomePage {
     private camera: Camera,
     private file: File,
     private webview: WebView,
-    public http: HttpClient,
-    private transfer: FileTransfer
+    public http: HttpClient
   ) {}
 
   onInit() {
@@ -51,8 +49,8 @@ export class HomePage {
         this.base64Image = await this.webview.convertFileSrc(pathExternal + 'prueba.jpg');
         this.selectedImage = nombre;
         setTimeout(() => {
-          console.log('Ready to send');
-          // this.uploadImage();
+            // this.upload();
+            console.log('Ready to send');
         }, 1000);
       } catch (error) {
         console.error(error);
@@ -86,33 +84,15 @@ export class HomePage {
     // });
 }
 
-  public uploadImage() {
-    console.log('Enviando imagen al servidor...');
-    // let url = 'http://192.168.50.164/xm3/image.php';
-    let url = 'http://192.168.50.75:8082/xm2/api/web/imgs/uploader.php';
-    let filePath = this.webview.convertFileSrc(this.file.externalApplicationStorageDirectory + 'prueba.jpg');
-    let img = this.file.externalApplicationStorageDirectory + 'prueba.jpg';
-
-    const fileTransfer: FileTransferObject = this.transfer.create();
-    let options: FileUploadOptions = {
-        fileKey: 'file',
-        fileName: 'prueba.jpg',
-        headers: {}
-    };
-    fileTransfer.upload(filePath, url, options).then((data) => {
-        console.log("FILETRANSFER");
-        console.log(data);
-    }, (err) => {
-        console.log("FILETRANSFER ERROR");
-        console.log(err);
+  public uploadImage(){
+    //let url = 'http://192.168.50.212/xm3/image.php';
+    let url = 'http://192.168.50.75:8082/xm2/api/web/imgs/uploader.php0';
+    let postData = new FormData();
+    postData.append('file', this.base64Image);
+    let data: Observable<any> = this.http.post(url, postData);
+    data.subscribe((result) => {
+      console.log(result);
     });
-
-    // let postData = new FormData();
-    // postData.append('file', this.base64Image);
-    // let data: Observable<any> = this.http.post(url, postData);
-    // data.subscribe((result) => {
-    //   console.log(result);
-    // });
   }
 
 

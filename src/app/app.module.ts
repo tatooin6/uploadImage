@@ -23,7 +23,6 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
-    FileTransfer
   ],
   providers: [
     StatusBar,
@@ -32,8 +31,7 @@ import { AppRoutingModule } from './app-routing.module';
     File,
     WebView,
     HttpClient,
-    FileTransfer
-  ],
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
